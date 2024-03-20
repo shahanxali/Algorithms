@@ -17,7 +17,7 @@
 #include<iostream>
 using namespace std;
 
-void QuickSort(int* array, int start, int end);
+void quicksort(int arr[], int size);
 void PrintArray(const int* array, int n);
 
 int main() {
@@ -41,7 +41,7 @@ int main() {
     }
 
     //calling the sorting function and printing of array
-    QuickSort(arr, 0, n - 1);
+    quicksort(arr,n);
     cout << "The Sorted array is: ";
     PrintArray(arr, n);
 
@@ -50,41 +50,64 @@ int main() {
 }
 
 //The implementation of quick sort is in this function ofcourse
-void QuickSort(int* array, int start, int end) {
+void quicksort(int arr[], int size)
+{
 
-    //running till we get end = start, that is when we want to break the recursion and found the answer
-    if (start < end) {
+    //Base case of the Quick Sort recursion or we can say backtracking, if the sub arrays gets to 1 size, that means
+    //we need to no join the array right? like split split split till? ofcourse unless you are to the array of size 1
+    //That is the last splitting and then we gotta merge
+    if (size <= 1)
+        return;
 
-        //pivot is chosed to be end, see not the last because we have to call the function again and again and whenever called the function we can
-        //choose pivot to be end but the value of n will be same na
-        int pivot = end;
 
-        //to track the element larger than pivot in each recursion (for placing the greater elements after pivot)
-        int i = start - 1;
+    //From here we got to create two arrays, left and right, left will be all smaller than pivot and right will be all greater
+    //Nothing new, as the first step to split right? all as it should be!
 
-        //loop to just place elements respective to pivot, the logic is easy if you think about it, keeping track of larger elements and then swapping
-        //its just a little confusing but if you design the logic for swapping such a way you will get to this loop eventually
-        for (int j = start; j < end; j++) {
-            if (array[j] < array[pivot]) {
-                i++;
-                swap(array[i], array[j]);
-            }
+    //pivot chosen as last of the array
+    int pivot = arr[size - 1];
+    int leftarr[size], rightarr[size];
+    //To keep track of indexes top insert in left and right subarrays
+    int l = 0, r = 0;
+
+    //2 different loops to do that placing of elements from original array to the left and right sub array
+    //read the code carefully and you will know how we doing it
+    for (int i = 0; i < size - 1; i++)
+    {
+        if (arr[i] <= pivot)
+        {
+            leftarr[l] = arr[i];
+            l++;
         }
+        else
+        {
+            rightarr[r] = arr[i];
+            r++;
+        }
+    }
 
-        //at the end place the pivot at the position it should be and that would be last swapped element cause that would be the smallest larger element of pivot
-        swap(array[i + 1], array[pivot]);
+    //Here is the main part, we are gonna call left sub array and do that splitting (done in previous lines) and create left and 
+    //right subarrays for that too and then again call to the last unless the base case is met that is the element is 
+    //only 1 left
+    quicksort(leftarr, l);
+    //And splitting all that rights of all left subarrays you know, splitting with condition all the time creating all that left
+    // and right with conditions and splitting
+    quicksort(rightarr, r);
 
-        //recursion call for array starting from start to i that is one less then pivot to
-        QuickSort(array, start, i);
-
-        //recursion call for array starting from i+2 that is one larger than pivot to the end
-        QuickSort(array, i + 2, end); 
-
-        //these two recursion will go on till the last while changing the start, end, i with need 
-
+    //Now all the sub arrays gonna go back to the original one which so we need to write all left and right ones sub arrays into
+    //this arr array which would be need in the main program, to print ofcourse.
+    int index = 0;
+    for (int i = 0; i < l; i++)
+    {
+        arr[index++] = leftarr[i];
+    }
+    arr[index++] = pivot;
+    for (int i = 0; i < r; i++)
+    {
+        arr[index++] = rightarr[i];
     }
 
     return;
+
 }
 
 
