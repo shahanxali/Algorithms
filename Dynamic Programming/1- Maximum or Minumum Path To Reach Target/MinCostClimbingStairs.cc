@@ -1,7 +1,7 @@
 //Question: https://leetcode.com/problems/min-cost-climbing-stairs/
 //Level: Easy
 
-//THE QUESTION IS SOLVED WITH DYNAMIC PROGRAMMING PART 1
+//THE QUESTION IS SOLVED WITH DYNAMIC PROGRAMMING TYPE 1
 
 //Recursive:
 
