@@ -1,6 +1,11 @@
 Problem Lists: https://leetcode.com/list/55ac4kuc
 
 
+Depends on future values, and if need to find minimum or maximum of something. ane wala number ko ane wale number pe depend karega and so on
+will somehow end as some singular point. So bacically when there is a destination to find on and it depends on further numbers not yet visited.
+All we have to do is return min/max (dp(i - 1), dp(i - 4) etc) + value[i]; with base case as whatever the last one will provide the answer to.
+
+
 Statement:
     Given a target find minimum (maximum) cost / path / sum to reach the target.
 
