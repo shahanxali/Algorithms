@@ -63,6 +63,8 @@ int main(){
 
     bfs(graph);
 
+    cout << "\n";
+
     return 0;
 
 

@@ -1,9 +1,15 @@
-//Question: 
+//Question: https://leetcode.com/problems/coin-change/
 //Level: Medium
 
 
 //THE QUESTION IS SOLVED USING DP 1
 
+
+//This is pretty hard as you will not find any sequance like before, sequantial go, no, its pretty much like you need to 
+//design a logic for recursive solution and find at what sequence is this going, then the problem would be in dp vector
+//but no problem, we will do something about it too. So here what we did is just call recursion for each i in amount where if taken
+//i in to account, what should be left, you can see the code for better understanding, see the anount part call in recursion call and
+//you will know what is going on.
 
 
 //Recursive solution:
@@ -97,8 +103,6 @@ public:
     }
 };
 
-
-//Memory Optimization:
 
 
 
