@@ -1,0 +1,46 @@
+Problem list: https://leetcode.com/list/55ajm50i
+
+
+Basically include number of combinations, just like the previous one, it just dont have any cost value to multiply or add,
+we just need to see the all possible combinations of previous one, is also the combination of the current one. thats it, 
+check out the first question to know better
+
+
+Distinct Ways
+
+Problem List: https://leetcode.com/list/55ajm50i
+
+Generate problem statement for this pattern
+
+Statement
+
+    Given a target find a number of distinct ways to reach the target.
+
+Approach
+
+    Sum all possible ways to reach the current state.
+
+routes[i] = routes[i-1] + routes[i-2], ... , + routes[i-k]
+
+Generate sum for all values in the target and return the value for the target.
+
+Top-Down
+
+for (int j = 0; j < ways.size(); ++j) {
+    result += topDown(target - ways[j]);
+}
+return memo[/*state parameters*/] = result;
+
+Bottom-Up
+
+for (int i = 1; i <= target; ++i) {
+   for (int j = 0; j < ways.size(); ++j) {
+       if (ways[j] <= i) {
+           dp[i] += dp[i - ways[j]];
+       }
+   }
+}
+ 
+return dp[target]
+
+
