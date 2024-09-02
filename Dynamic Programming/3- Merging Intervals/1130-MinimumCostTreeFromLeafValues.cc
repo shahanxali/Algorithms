@@ -97,6 +97,35 @@ public:
 
 
 
+class Solution {
+public:
+    int mctFromLeafValues(vector<int>& arr) {
+        int n = arr.size();
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        vector<vector<int>> maxLeaf(n, vector<int>(n, 0));
+
+        // Fill in the maxLeaf table where maxLeaf[i][j] is the maximum leaf value in the subarray arr[i...j]
+        for (int i = 0; i < n; i++) {
+            maxLeaf[i][i] = arr[i];
+            for (int j = i + 1; j < n; j++) {
+                maxLeaf[i][j] = max(maxLeaf[i][j - 1], arr[j]);
+            }
+        }
+
+        // Fill in the DP table
+        for (int length = 2; length <= n; length++) {  // length is the length of the subarray
+            for (int i = 0; i <= n - length; i++) {
+                int j = i + length - 1;
+                dp[i][j] = INT_MAX;
+                for (int k = i; k < j; k++) {
+                    dp[i][j] = min(dp[i][j], dp[i][k] + dp[k + 1][j] + maxLeaf[i][k] * maxLeaf[k + 1][j]);
+                }
+            }
+        }
+
+        return dp[0][n - 1];
+    }
+};
 
 
 
