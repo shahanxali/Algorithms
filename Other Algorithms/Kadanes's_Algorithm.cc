@@ -3,21 +3,6 @@ using namespace std;
 
 int kadanes(vector<int> arr){
 
-    int count = 0, ans = INT_MIN, a, b;
-    vector<int> temp;
-
-    for(int i = 0; i < arr.size() - 1; i++){
-        count = 0;
-        for(int j = i; j < arr.size(); j++){
-
-            count += arr[j];
-
-            ans = max(ans, count);
-
-        }
-
-    }
-    return ans;
 
 
 }

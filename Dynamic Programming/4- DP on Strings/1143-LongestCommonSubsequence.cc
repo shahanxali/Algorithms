@@ -9,47 +9,32 @@
 
 //Recurcive Solution:
 
-
 class Solution {
 public:
+    int recur(string& text1, string& text2, int firstindex, int secondindex) {
 
-    void recur(string& text1, string& text2, int firstindex, int secondindex, int count, int& ans){
 
-        ans = max(ans, count);
-        if(firstindex == text1.size() && secondindex == text2.size()){
-            return;
+        // Base case: If either index reaches the end of the string, return 0
+        if (firstindex == text1.size() || secondindex == text2.size()) {
+            return 0;
         }
 
-
-        for(int i = firstindex; i < text1.size(); i++){
-
-            for(int j = secondindex; j < text2.size(); j++){
-
-                if(text1[i] == text2[j]){
-
-                    recur(text1, text2, i + 1, j + 1, count + 1, ans);
-
-                }
-
-            }
-
+        // If characters match, move both indices forward
+        if (text1[firstindex] == text2[secondindex]) {
+            return 1 + recur(text1, text2, firstindex + 1, secondindex + 1);
+        } else {
+            // Otherwise, move one of the indices forward and take the maximum result
+            return max(recur(text1, text2, firstindex + 1, secondindex), recur(text1, text2, firstindex, secondindex + 1));
         }
 
-
-        return;
 
     }
 
     int longestCommonSubsequence(string text1, string text2) {
-
-        int ans = 0;
-        recur(text1, text2, 0, 0, 0, ans);
-
-        return ans;
-
+        // Start the recursion from the beginning of both strings
+        return recur(text1, text2, 0, 0);
     }
 };
-
 
 
 
@@ -57,58 +42,38 @@ public:
 
 //Top Down:
 
-
 class Solution {
 public:
-
-    void recur(string& text1, string& text2, int firstindex, int secondindex, int count, int& ans, vector<vector<int>> dp){
-
-        ans = max(ans, count);
-
-        if(dp[firstindex][secondindex] != -1){
-            return;
+    int recur(string& text1, string& text2, int firstindex, int secondindex, vector<vector<int>>& dp) {
+        // Base case: If either index reaches the end of the string, return 0
+        if (firstindex == text1.size() || secondindex == text2.size()) {
+            return 0;
         }
 
-        if(firstindex == text1.size() && secondindex == text2.size()){
-            return;
+        // If already calculated, return the stored value
+        if (dp[firstindex][secondindex] != -1) {
+            return dp[firstindex][secondindex];
         }
 
-
-        for(int i = firstindex; i < text1.size(); i++){
-
-            for(int j = secondindex; j < text2.size(); j++){
-
-                if(text1[i] == text2[j]){
-
-                    dp[i][j] = ans = max(ans, count + 1);
-
-                    recur(text1, text2, i + 1, j + 1, count + 1, ans, dp);
-
-                }
-
-            }
-
+        // If the characters match, move both indices and add 1 to the result
+        if (text1[firstindex] == text2[secondindex]) {
+            dp[firstindex][secondindex] = 1 + recur(text1, text2, firstindex + 1, secondindex + 1, dp);
+        } else {
+            // Otherwise, try both possibilities: skip a character from either string
+            dp[firstindex][secondindex] = max(recur(text1, text2, firstindex + 1, secondindex, dp), recur(text1, text2, firstindex, secondindex + 1, dp));
         }
 
-
-        return;
-
+        return dp[firstindex][secondindex];
     }
 
     int longestCommonSubsequence(string text1, string text2) {
+        // DP table initialized to -1 for memoization
+        vector<vector<int>> dp(text1.size(), vector<int>(text2.size(), -1));
 
-        vector<vector<int>> dp(text1.size() + 1, (vector<int>(text2.size() + 1, -1)));
-
-        int ans = 0;
-        recur(text1, text2, 0, 0, 0, ans, dp);
-
-        return ans;
-
+        // Start the recursion from the beginning of both strings
+        return recur(text1, text2, 0, 0, dp);
     }
 };
-
-
-
 
 
 
