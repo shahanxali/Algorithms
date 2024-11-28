@@ -33,7 +33,6 @@ class Graph{
 
 vector<int> dijkstra(vector<vector<pair<int, int>>> &g, int a){
 
-
     vector<int> ans(g.size(), INT_MAX);
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
 
